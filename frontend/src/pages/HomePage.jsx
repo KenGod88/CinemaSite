@@ -4,7 +4,7 @@ import Movies from "../components/Movies";
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="">
       <Movies />
     </div>
   );
