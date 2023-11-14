@@ -35,14 +35,22 @@ const MovieDetailPage = () => {
         <div className="flex-1 md:ml-4">
           <h1 className="text-3xl font-bold">{movie.title}</h1>
           <p className="mt-2">{movie.extract}</p>
-          <div className="flex flex-row p-3 justify-center  ">
-            {movie.cast.map((cast) => {
-              return (
-                <p className="  text-xs font-semibold text-white " key={cast}>
-                  {cast}
-                </p>
-              );
-            })}
+          <div className="justify-center  ">
+            <div>
+              <h2 className="underline mt-4">Cast</h2>
+            </div>
+            <div className="grid grid-cols-6 p-4">
+              {movie.cast.map((cast) => {
+                return (
+                  <p
+                    className=" grid grid-cols-6 text-xs font-semibold text-white "
+                    key={cast}
+                  >
+                    {cast}
+                  </p>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
