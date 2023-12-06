@@ -1,4 +1,3 @@
-import React from "react";
 import movieData from "../utils/movies.json";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,15 +6,23 @@ import { useState } from "react";
 
 const MovieDetailPage = () => {
   const { moviehref } = useParams();
-  const { tickets, setTickets } = useState(0);
+  const [ticketsCouter, setTicketsCounter] = useState(0);
+  const [selectedSeats, setSelectedSeats] = useState([]);
+  const ticketPrice = 12;
 
   // const { ticketHistory, setTicketHistory } = useState([]);
 
   //handle click doet momenteel niks
-  const handleClick = (value) => {
-    setTickets([tickets + value]);
+  const handleClick = (index) => {
+    const updatedSelectedSeats = [...selectedSeats];
+    updatedSelectedSeats[index] = !updatedSelectedSeats[index];
+    setSelectedSeats(updatedSelectedSeats);
+    setTicketsCounter((prevCounter) =>
+      updatedSelectedSeats[index] ? prevCounter + 1 : prevCounter - 1
+    );
 
     console.log("clicked!!!");
+    console.log(ticketsCouter);
   };
 
   const movie = movieData.find((movie) => movie.href === moviehref);
@@ -54,16 +61,29 @@ const MovieDetailPage = () => {
           </div>
         </div>
       </div>
-      <hr className="w-96 h-1 mx-auto my-4 bg-white border-0 rounded md:my-10"></hr>
-      <div className="max-w-3xl grid grid-cols-10 justify-center gap-4 mx-auto">
-        {Array.from({ length: 100 }, (_, index) => (
-          <FontAwesomeIcon
-            handleClick={handleClick}
-            icon={faChair}
-            className="text-white text-2xl mx-2 cursor-pointer"
-            key={index}
-          />
-        ))}
+      <div>
+        <div className="flex flex-col justify-center items-center">
+          <h1 className="text-2xl font-extrabold">Tickets</h1>
+          <p className="font-thin">
+            {ticketsCouter} tickets = {ticketsCouter * ticketPrice} Euro
+          </p>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 m-2 rounded">
+            Bestel tickets
+          </button>
+        </div>
+        <hr className="w-96 h-1 mx-auto my-4 bg-white border-0 rounded md:my-10"></hr>
+        <div className="max-w-3xl grid grid-cols-10 justify-center gap-4 mx-auto">
+          {Array.from({ length: 60 }, (_, index) => (
+            <FontAwesomeIcon
+              onClick={() => handleClick(index)}
+              icon={faChair}
+              className={`text-white text-2xl mx-2 cursor-pointer ${
+                selectedSeats[index] ? "text-blue-500" : ""
+              }`}
+              key={index}
+            />
+          ))}
+        </div>
       </div>
     </>
   );

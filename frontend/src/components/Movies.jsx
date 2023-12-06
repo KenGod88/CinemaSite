@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import movieData from "../utils/movies.json";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Movies = () => {
   const navigate = useNavigate();
+
+  // const [movies, setMovies] = useState([]);
+
+  // useEffect(() => {
+  //   const fetchMovies = async () => {
+  //     const response = await fetch("/src/utils/data.json");
+  //     const data = await response.json();
+  //     setMovies(data.results);
+  //   };
+
+  //   fetchMovies();
+  // }, []);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-20 justify-center ">
